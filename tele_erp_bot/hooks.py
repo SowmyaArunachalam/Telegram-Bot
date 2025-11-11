@@ -136,7 +136,13 @@ app_license = "mit"
 # Document Events
 # ---------------
 # Hook on document methods and events
-
+doc_events = {
+    "Sales Invoice": {"on_submit": "tele_erp_bot.new_files.methods.pdf_generation"},
+    "Quotation": {"on_submit": "tele_erp_bot.new_files.methods.pdf_generation"},
+    "Sales Order": {"on_submit": "tele_erp_bot.new_files.methods.pdf_generation"},
+    "Payment Entry": {"on_submit": "tele_erp_bot.new_files.methods.pdf_generation"},
+    "Delivery Note": {"on_submit": "tele_erp_bot.new_files.methods.pdf_generation"},
+}
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",
@@ -147,7 +153,14 @@ app_license = "mit"
 
 # Scheduled Tasks
 # ---------------
-
+# scheduler_events = {
+#     "cron": {
+#         "*/1 * * * *": [
+#             "tele_erp_bot.new_files.methods.user_details"
+#             ]
+#         }
+# }
+scheduler_events = {"weekly": ["tele_erp_bot.new_files.methods.user_details"]}
 # scheduler_events = {
 # 	"all": [
 # 		"tele_erp_bot.tasks.all"
@@ -165,6 +178,7 @@ app_license = "mit"
 # 		"tele_erp_bot.tasks.monthly"
 # 	],
 # }
+
 
 # Testing
 # -------
@@ -241,4 +255,3 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-
