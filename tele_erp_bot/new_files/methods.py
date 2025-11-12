@@ -14,17 +14,13 @@ from telebot.types import (
     KeyboardButton,
 )
 
-# chat_id =0
-# frappe.init(site='erpnext.localhost')   # or your actual site name (check bench sites folder)
-# frappe.connect()
-# print("Hiiiiiiiiii")
-print("Connected site:", frappe.local.site)
-print("Is connected:", frappe.db)
+# print("Connected site:", frappe.local.site)
+# print("Is connected:", frappe.db)
 
+new_token = frappe.db.get_single_value('Token', 'tele_token')
+# print(new_token)
 
-# --- Webhook endpoint ---
-
-bot = telebot.TeleBot(token="8299952026:AAE9Fy7JBsXzOIQ6Fy-nw5n4JBJ85yByWHE")
+bot = telebot.TeleBot(token=new_token)
 
 item_price = frappe.db.sql(
     "Select item_name, price_list_rate from `tabItem Price` where price_list = 'Standard Selling'"
@@ -253,5 +249,5 @@ def user_details():
 @frappe.whitelist(allow_guest=True)
 def webhook():
     update = json.loads(frappe.request.data)
-    bot.process_new_updates([telebot.types.Update.de_json(update)])
+    bot.process_new_updates([Update.de_json(update)])
     return "OK"
